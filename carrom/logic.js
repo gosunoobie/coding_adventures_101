@@ -78,7 +78,8 @@ let fullWidth = window.innerWidth;
 let fullHeight = window.innerHeight;
 canvas.width = fullWidth;
 canvas.height = fullHeight;
-
+const image = new Image();
+image.src = "./carrom.png";
 const energyLoss = 0.6;
 const cornerEnergyLoss = 0.75;
 const mouse = {
@@ -99,6 +100,7 @@ function Arena(x, y, radius) {
   this.draw = () => {
     c.beginPath();
     c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+
     c.stroke();
     c.closePath();
   };
@@ -122,10 +124,13 @@ function Particle(x, y, velocity, radius) {
 
   this.draw = () => {
     c.beginPath();
-    c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-    c.fillStyle = this.color;
-    c.fill();
-    c.closePath();
+    c.drawImage(
+      image,
+      this.x - this.radius,
+      this.y - this.radius,
+      this.radius * 2,
+      this.radius * 2
+    );
   };
 
   this.drawTrajectory = () => {
